@@ -1328,7 +1328,7 @@ THREE.LoaderSupport.NodeWorkerRunnerRefImpl = function () {
 	// No call to super because super class only binds to processMessage
 	// In NodeJS, there is no addEventListener so use onmessage.
 	// Also, the message object can be passed directly to
-	// processMessage() as it isn't an `Event`, but a plain object
+	// processMessage() as it isn't an `TimeEvent`, but a plain object
 	// with the data
 	this.getParentScope().onmessage = this.processMessage.bind( this );
 };

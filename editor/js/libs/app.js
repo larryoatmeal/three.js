@@ -88,7 +88,7 @@ var APP = {
 
 						if ( events[ name ] === undefined ) {
 
-							console.warn( 'APP.Player: Event type not supported (', name, ')' );
+							console.warn( 'APP.Player: TimeEvent type not supported (', name, ')' );
 							continue;
 
 						}
