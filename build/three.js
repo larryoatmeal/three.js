@@ -8689,6 +8689,25 @@
 
 		},
 
+	    getWorldUpDirection: function ( target ) {
+
+	        if ( target === undefined ) {
+
+	            console.warn( 'THREE.Object3D: .getWorldDirection() target is now required' );
+	            target = new Vector3();
+
+	        }
+
+	        this.updateMatrixWorld( true );
+
+	        var e = this.matrixWorld.elements;
+
+	        return target.set( e[ 4 ], e[ 5 ], e[ 6 ] ).normalize();
+
+	    },
+
+
+
 		raycast: function () {},
 
 		traverse: function ( callback ) {
