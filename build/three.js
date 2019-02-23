@@ -41855,7 +41855,7 @@
 
 		},
 
-		// return true when play has been called
+		// return true when playFromStart has been called
 		isScheduled: function () {
 
 			return this._mixer._isActiveAction( this );

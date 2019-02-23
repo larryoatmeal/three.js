@@ -57,7 +57,7 @@
 				scene.add( skeletonHelper );
 				scene.add( boneContainer );
 
-				// play animation
+				// playFromStart animation
 				mixer = new THREE.AnimationMixer( skeletonHelper );
 				mixer.clipAction( result.clip ).setEffectiveWeight( 1.0 ).play();
 

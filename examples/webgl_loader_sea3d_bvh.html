@@ -83,7 +83,7 @@
 
 			loader = new THREE.SEA3D( {
 
-				autoPlay: true, // Auto play animations
+				autoPlay: true, // Auto playFromStart animations
 				container: scene, // Container to add models
 				multiplier: .6 // Light multiplier
 
@@ -213,7 +213,7 @@
 					scene.add( bvhSkeletonHelper );
 					scene.add( boneContainer );
 
-					// play animation
+					// playFromStart animation
 					bvhMixer = new THREE.AnimationMixer( bvhSkeletonHelper );
 					bvhMixer.clipAction( result.clip ).setEffectiveWeight( 1.0 ).play();
 

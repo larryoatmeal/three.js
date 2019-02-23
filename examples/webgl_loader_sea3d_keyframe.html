@@ -78,7 +78,7 @@
 
 			loader = new THREE.SEA3D( {
 
-				autoPlay: false, // Manual play animations
+				autoPlay: false, // Manual playFromStart animations
 				container: scene // Container to add models
 
 			} );
@@ -110,7 +110,7 @@
 
 			function playAll( id, crossfade, offset ) {
 
-				// play all animations
+				// playFromStart all animations
 
 				for ( var i = 0; i < loader.meshes.length; i ++ ) {
 
@@ -217,7 +217,7 @@
 
 				switch ( demoAt = ++ demoAt % 4 ) {
 
-					// play all animation to sequence "crash#1"
+					// playFromStart all animation to sequence "crash#1"
 
 					case 0:
 
@@ -228,7 +228,7 @@
 
 						break;
 
-						// play all animation to sequence "crash#2"
+						// playFromStart all animation to sequence "crash#2"
 
 					case 1:
 
@@ -238,7 +238,7 @@
 
 						break;
 
-						// play animation in single object
+						// playFromStart animation in single object
 
 					case 2:
 

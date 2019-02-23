@@ -80,7 +80,7 @@
 
 			loader = new THREE.SEA3D( {
 
-				autoPlay: true, // Auto play animations
+				autoPlay: true, // Auto playFromStart animations
 				container: scene, // Container to add models
 				multiplier: .6 // Light multiplier
 
@@ -208,9 +208,9 @@
 
 			function onRightClick( e ) {
 
-				// play character animation
+				// playFromStart character animation
 				if ( player.currentAnimation.name == "idle" )
-					player.play( "run", .5 );// play "pass#1" to caller .onComplete animation example
+					player.play( "run", .5 );// playFromStart "pass#1" to caller .onComplete animation example
 				else
 					player.play( "idle", .5 );
 

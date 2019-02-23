@@ -81,14 +81,14 @@
 
 			loader = new THREE.SEA3D( {
 
-				autoPlay: false, // Auto play animations
+				autoPlay: false, // Auto playFromStart animations
 				container: scene // Container to add models
 
 			} );
 
 			loader.onComplete = function () {
 
-				// play all animations
+				// playFromStart all animations
 
 				for ( var i = 0; i < loader.meshes.length; i ++ ) {
 
