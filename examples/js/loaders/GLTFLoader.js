@@ -343,7 +343,7 @@ THREE.GLTFLoader = ( function () {
 				break;
 
 			case 'point':
-				lightNode = new THREE.PointLight( color );
+				lightNode = new THREE.PointLight( color , 2);
 				lightNode.distance = range;
 				break;
 
@@ -371,6 +371,7 @@ THREE.GLTFLoader = ( function () {
 
 		lightNode.name = lightDef.name || ( 'light_' + lightIndex );
 
+		console.log(lightNode);
 		return Promise.resolve( lightNode );
 
 	};
