@@ -99,7 +99,6 @@ ArrowHelper.prototype.setDirection = ( function () {
 }() );
 
 ArrowHelper.prototype.setLength = function ( length, headLength, headWidth ) {
-
 	if ( headLength === undefined ) headLength = 0.2 * length;
 	if ( headWidth === undefined ) headWidth = 0.2 * headLength;
 

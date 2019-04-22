@@ -8502,6 +8502,39 @@
 
 		}(),
 
+
+	    setAxis: function () {
+	        // This method does not support objects having non-uniformly-scaled parent(s)
+	        let q1 = new Quaternion();
+	        let m1 = new Matrix4();
+	        let xAxis = new Vector3();
+
+	        return function setAxis( yAxis, zAxis) {
+	            let parent = this.parent;
+	            this.updateWorldMatrix( true, false );
+
+	            xAxis.crossVectors(yAxis, zAxis);
+
+	            let elements = m1.elements;
+	            elements[ 0 ] = xAxis.x; elements[ 4 ] = yAxis.x; elements[ 8 ]  = zAxis.x;
+	            elements[ 1 ] = xAxis.y; elements[ 5 ] = yAxis.y; elements[ 9 ]  = zAxis.y;
+	            elements[ 2 ] = xAxis.z; elements[ 6 ] = yAxis.z; elements[ 10 ] = zAxis.z;
+
+	            this.quaternion.setFromRotationMatrix( m1 );
+	            if ( parent ) {
+
+	                m1.extractRotation( parent.matrixWorld );
+	                q1.setFromRotationMatrix( m1 );
+	                this.quaternion.premultiply( q1.inverse() );
+
+	            }
+
+	        };
+
+	    }(),
+
+
+
 		add: function ( object ) {
 
 			if ( arguments.length > 1 ) {
@@ -45407,7 +45440,6 @@
 	}() );
 
 	ArrowHelper.prototype.setLength = function ( length, headLength, headWidth ) {
-
 		if ( headLength === undefined ) headLength = 0.2 * length;
 		if ( headWidth === undefined ) headWidth = 0.2 * headLength;
 
