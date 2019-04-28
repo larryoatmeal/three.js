@@ -616,7 +616,7 @@ AnimationMixer.prototype = Object.assign( Object.create( EventDispatcher.prototy
 		return this;
 
 	},
-
+	
 	// advance the time and update apply the animation
 	update: function ( deltaTime ) {
 
