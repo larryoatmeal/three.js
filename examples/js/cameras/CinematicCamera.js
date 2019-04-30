@@ -118,7 +118,7 @@ THREE.CinematicCamera.prototype.initPostProcessing = function () {
 
 	if ( this.postprocessing.enabled ) {
 
-		this.postprocessing.scene = new THREE.Scene();
+		this.postprocessing.mainScene = new THREE.Scene();
 
 		this.postprocessing.camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2,	window.innerHeight / 2, window.innerHeight / - 2, - 10000, 10000 );
 
