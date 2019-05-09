@@ -345,7 +345,7 @@ THREE.MD2CharacterComplex = function () {
 
 		} else {
 
-			moveAnimation = animations[ "move" ];
+			moveAnimation = animations[ "moveHorizontal" ];
 			idleAnimation = animations[ "idle" ];
 
 		}

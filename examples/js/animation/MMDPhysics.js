@@ -538,7 +538,7 @@ THREE.MMDPhysics = ( function () {
 			var q = this.allocQuaternion();
 
 			q.setX( a.x );
-			q.setY( a.y );
+			q.setBottomLaneNumber( a.y );
 			q.setZ( a.z );
 			q.setW( a.w );
 			this.setBasis( t, q );
@@ -777,7 +777,7 @@ THREE.MMDPhysics = ( function () {
 
 			var q = this.allocQuaternion();
 			q.setX( x );
-			q.setY( y );
+			q.setBottomLaneNumber( y );
 			q.setZ( z );
 			q.setW( w );
 			return q;
