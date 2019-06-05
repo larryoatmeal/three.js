@@ -4,32 +4,16 @@
 		<title>three.js - pointerlock controls</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
 		<style>
-			html, body {
-				width: 100%;
-				height: 100%;
-			}
-
-			body {
-				background-color: #ffffff;
-				margin: 0;
-				overflow: hidden;
-				font-family: arial;
-			}
-
 			#blocker {
-
 				position: absolute;
-
 				width: 100%;
 				height: 100%;
-
 				background-color: rgba(0,0,0,0.5);
-
 			}
 
 			#instructions {
-
 				width: 100%;
 				height: 100%;
 
@@ -51,11 +35,12 @@
 
 				color: #ffffff;
 				text-align: center;
+				font-family: Arial;
+				font-size: 14px;
+				line-height: 24px;
 
 				cursor: pointer;
-
 			}
-
 		</style>
 	</head>
 	<body>
@@ -65,9 +50,11 @@
 		<div id="blocker">
 
 			<div id="instructions">
-				<span style="font-size:40px">Click to play</span>
-				<br />
-				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+				<span style="font-size:36px">Click to play</span>
+				<br /><br />
+				Move: WASD<br/>
+				Jump: SPACE<br/>
+				Look: MOUSE
 			</div>
 
 		</div>
@@ -112,20 +99,20 @@
 				var blocker = document.getElementById( 'blocker' );
 				var instructions = document.getElementById( 'instructions' );
 
-				instructions.addEventListener( 'click', function ( event ) {
+				instructions.addEventListener( 'click', function () {
 
 					controls.lock();
 
 				}, false );
 
-				controls.addEventListener( 'lock', function() {
+				controls.addEventListener( 'lock', function () {
 
 					instructions.style.display = 'none';
 					blocker.style.display = 'none';
 
 				} );
 
-				controls.addEventListener( 'unlock', function() {
+				controls.addEventListener( 'unlock', function () {
 
 					blocker.style.display = 'block';
 					instructions.style.display = '';
@@ -145,7 +132,8 @@
 
 						case 37: // left
 						case 65: // a
-							moveLeft = true; break;
+							moveLeft = true;
+							break;
 
 						case 40: // down
 						case 83: // s
@@ -168,7 +156,7 @@
 
 				var onKeyUp = function ( event ) {
 
-					switch( event.keyCode ) {
+					switch ( event.keyCode ) {
 
 						case 38: // up
 						case 87: // w
@@ -327,9 +315,8 @@
 						canJump = true;
 
 					}
-
 					controls.getObject().translateX( velocity.x * delta );
-					controls.getObject().translateY( velocity.y * delta );
+					controls.getObject().position.y += ( velocity.y * delta ); // new behavior
 					controls.getObject().translateZ( velocity.z * delta );
 
 					if ( controls.getObject().position.y < 10 ) {

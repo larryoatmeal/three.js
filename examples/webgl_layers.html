@@ -4,21 +4,14 @@
 		<title>three.js webgl - layers</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
 		<style>
 			body {
-				font-family: Monospace;
 				background-color: #f0f0f0;
-				margin: 0px;
-				overflow: hidden;
+				color: #444;
 			}
-
-			#info {
-				position: absolute;
-				top: 10px;
-				width: 100%;
-				text-align: center;
-				z-index: 0; // to not conflict with dat.gui
-				display:block;
+			a {
+				color: #08f;
 			}
 		</style>
 	</head>
@@ -92,12 +85,10 @@
 
 				}
 
-				raycaster = new THREE.Raycaster();
-
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				container.appendChild(renderer.domElement);
+				container.appendChild( renderer.domElement );
 
 				stats = new Stats();
 				container.appendChild( stats.dom );
@@ -107,9 +98,21 @@
 				//
 				// Init gui
 				var gui = new dat.GUI();
-				gui.add( layers, 'red' ).onChange( function () { camera.layers.toggle( 0 ); } );
-				gui.add( layers, 'green' ).onChange( function () { camera.layers.toggle( 1 ); } );
-				gui.add( layers, 'blue' ).onChange( function () { camera.layers.toggle( 2 ); } );
+				gui.add( layers, 'red' ).onChange( function () {
+
+					camera.layers.toggle( 0 );
+
+				} );
+				gui.add( layers, 'green' ).onChange( function () {
+
+					camera.layers.toggle( 1 );
+
+				} );
+				gui.add( layers, 'blue' ).onChange( function () {
+
+					camera.layers.toggle( 2 );
+
+				} );
 
 				window.addEventListener( 'resize', onWindowResize, false );
 

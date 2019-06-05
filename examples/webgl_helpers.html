@@ -4,13 +4,7 @@
 		<title>three.js webgl - helpers</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				margin: 0px;
-				background-color: #000000;
-				overflow: hidden;
-			}
-		</style>
+		<link type="text/css" rel="stylesheet" href="main.css">
 	</head>
 	<body>
 
@@ -67,7 +61,7 @@
 					scene.add( group );
 
 					// To make sure that the matrixWorld is up to date for the boxhelpers
-					group.updateMatrixWorld(true);
+					group.updateMatrixWorld( true );
 
 					group.add( mesh );
 
@@ -90,7 +84,7 @@
 					line.material.depthTest = false;
 					line.material.opacity = 0.25;
 					line.material.transparent = true;
-					line.position.x = -4;
+					line.position.x = - 4;
 					group.add( line );
 					scene.add( new THREE.BoxHelper( line ) );
 
