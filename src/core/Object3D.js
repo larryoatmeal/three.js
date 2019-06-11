@@ -684,9 +684,12 @@ Object3D.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 	},
 
-	updateMatrixWorld: function ( force ) {
+	updateMatrixWorld: function ( force , doubleForce) {
 
-        if( !this.visible ){ return false; } //https://discourse.threejs.org/t/updatematrixworld-performance/3217
+				// console.log("yo", force)
+        if( !this.visible && !force){
+        	return false;
+        } //https://discourse.threejs.org/t/updatematrixworld-performance/3217
 
         if ( this.matrixAutoUpdate ) this.updateMatrix();
 
