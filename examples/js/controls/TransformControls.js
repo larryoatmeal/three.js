@@ -192,7 +192,7 @@ THREE.TransformControls = function ( camera, domElement ) {
 	// updateMatrixWorld  updates key transformation variables
 	this.updateMatrixWorld = function () {
 
-		if ( this.object !== undefined ) {
+		if ( this.object !== undefined && this.object.parent ) {
 
 			this.object.updateMatrixWorld();
 			this.object.parent.matrixWorld.decompose( parentPosition, parentQuaternion, parentScale );
