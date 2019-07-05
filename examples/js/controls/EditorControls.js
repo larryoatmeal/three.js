@@ -5,7 +5,7 @@
  * @author WestLangley / http://github.com/WestLangley
  */
 
-THREE.EditorControls = function ( object, domElement ) {
+THREE.EditorControls = function ( object, domElement , orthographicMode) {
 
 	domElement = ( domElement !== undefined ) ? domElement : document;
 
@@ -70,35 +70,76 @@ THREE.EditorControls = function ( object, domElement ) {
 
 	this.pan = function ( delta ) {
 
-		var distance = object.position.distanceTo( center );
 
-		delta.multiplyScalar( distance * scope.panSpeed );
-		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
+		if(orthographicMode){
+			// var distance = object.position.distanceTo( center );
+			delta.multiplyScalar( scope.panSpeed * 1000 );
+			// delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
+			object.position.add( delta );
+			center.add( delta );
+			scope.dispatchEvent( changeEvent );
+			object.updateProjectionMatrix();
 
-		object.position.add( delta );
-		center.add( delta );
+			console.log(object.position);
 
-		scope.dispatchEvent( changeEvent );
+		}else{
+			var distance = object.position.distanceTo( center );
+			delta.multiplyScalar( distance * scope.panSpeed );
+			delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
+
+
+			object.position.add( delta );
+			center.add( delta );
+			scope.dispatchEvent( changeEvent );
+
+		}
+
+
+
+
+
+
 
 	};
 
 	this.zoom = function ( delta ) {
 
-		var distance = object.position.distanceTo( center );
+		if(orthographicMode){
+			const f = Math.pow(1.05, -delta.z);
 
-		delta.multiplyScalar( distance * scope.zoomSpeed );
+			object.zoom = object.zoom * f;
+			console.log(object.zoom);
 
-		if ( delta.length() > distance ) return;
+			object.updateProjectionMatrix();
 
-		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
+		}else{
+			var distance = object.position.distanceTo( center );
 
-		object.position.add( delta );
+			delta.multiplyScalar( distance * scope.zoomSpeed );
 
-		scope.dispatchEvent( changeEvent );
+			if ( delta.length() > distance ) return;
+
+			delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
+
+			object.position.add( delta );
+
+			scope.dispatchEvent( changeEvent );
+		}
+
+
 
 	};
 
 	this.rotate = function ( delta ) {
+
+
+
+
+		if(orthographicMode) {
+			delta.y = -delta.y;
+			this.pan(delta);
+			return;
+		};
 
 		vector.copy( object.position ).sub( center );
 
