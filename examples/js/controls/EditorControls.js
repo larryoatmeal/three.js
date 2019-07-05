@@ -58,11 +58,18 @@ THREE.EditorControls = function ( object, domElement , orthographicMode) {
 
 		}
 
-		delta.set( 0, 0, 1 );
-		delta.applyQuaternion( object.quaternion );
-		delta.multiplyScalar( distance * 4 );
 
-		object.position.copy( center ).add( delta );
+		if(object instanceof OrthographicCamera){
+			object.position.x = center.x;
+			object.position.y = center.y;
+
+		}else{
+			delta.set( 0, 0, 1 );
+			delta.applyQuaternion( object.quaternion );
+			delta.multiplyScalar( distance * 4 );
+
+			object.position.copy( center ).add( delta );
+		}
 
 		scope.dispatchEvent( changeEvent );
 
