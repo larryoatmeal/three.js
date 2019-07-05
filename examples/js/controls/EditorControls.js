@@ -127,11 +127,9 @@ THREE.EditorControls = function ( object, domElement , orthographicMode) {
 
 			object.position.add( delta );
 
-			scope.dispatchEvent( changeEvent );
 		}
 
-
-
+		scope.dispatchEvent( changeEvent );
 	};
 
 	this.rotate = function ( delta ) {
