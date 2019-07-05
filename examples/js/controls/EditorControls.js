@@ -87,8 +87,6 @@ THREE.EditorControls = function ( object, domElement , orthographicMode) {
 			scope.dispatchEvent( changeEvent );
 			object.updateProjectionMatrix();
 
-			console.log(object.position);
-
 		}else{
 			var distance = object.position.distanceTo( center );
 			delta.multiplyScalar( distance * scope.panSpeed );
@@ -115,7 +113,6 @@ THREE.EditorControls = function ( object, domElement , orthographicMode) {
 			const f = Math.pow(1.05, -delta.z);
 
 			object.zoom = object.zoom * f;
-			console.log(object.zoom);
 
 			object.updateProjectionMatrix();
 
