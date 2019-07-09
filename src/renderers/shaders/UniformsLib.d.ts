@@ -1,5 +1,6 @@
 export interface IUniform {
 	value: any;
+	needsUpdate?: boolean;
 }
 
 export let UniformsLib: {
