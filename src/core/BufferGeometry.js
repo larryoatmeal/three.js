@@ -730,7 +730,7 @@ BufferGeometry.prototype = Object.assign( Object.create( EventDispatcher.prototy
 
 				if ( isNaN( this.boundingSphere.radius ) ) {
 
-					console.error( 'THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The "position" attribute is likely to have NaN values.', this );
+					// console.error( 'THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The "position" attribute is likely to have NaN values.', this );
 
 				}
 
