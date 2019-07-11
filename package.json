@@ -48,6 +48,8 @@
     "build-closure": "java -jar node_modules/google-closure-compiler-java/compiler.jar --warning_level=VERBOSE --jscomp_off=globalThis --jscomp_off=checkTypes --externs utils/build/externs.js --language_in=ECMASCRIPT5_STRICT --js build/three.merged.js --js_output_file build/three.min.js",
     "prebuild-closure": "rollup -c; concat -o build/three.merged.js build/three.js examples/js/loaders/GLTFLoader.js",
     "build-watch": "rollup -c --watch",
+    "build-watch-lean": "rollup -c rollup.config.lean.js --watch",
+    "build-watch-lean-test": "rollup -c rollup.config.lean.test.js --watch",
     "build-examples": "rollup -c rollup-examples.config.js",
     "dev": "concurrently --names \"ROLLUP,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c -w -m inline\" \"http-server -c-1 -p 8080\"",
     "dev-test": "concurrently --names \"ROLLUP,ROLLUPTEST,HTTP\" -c \"bgBlue.bold,bgRed.bold,bgGreen.bold\" \"rollup -c -w -m inline\" \"rollup -c test/rollup.unit.config.js -w -m inline\" \"http-server -p 8080\"",

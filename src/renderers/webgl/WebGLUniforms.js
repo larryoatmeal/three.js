@@ -825,7 +825,10 @@ WebGLUniforms.upload = function ( gl, seq, values, textures ) {
 			u.setValue( gl, v.value, textures );
 
 		}
-
+		else if(v.manualUpdate){ //one time update
+			u.setValue( gl, v.value, textures );
+			v.manualUpdate = false;
+		}
 	}
 
 };
