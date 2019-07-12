@@ -22,6 +22,7 @@ export let Object3DIdCount: number;
  */
 export class Object3D extends EventDispatcher {
 
+
 	constructor();
 
 	/**
