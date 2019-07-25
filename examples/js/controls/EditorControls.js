@@ -5,7 +5,7 @@
  * @author WestLangley / http://github.com/WestLangley
  */
 
-THREE.EditorControls = function ( object, domElement , orthographicMode) {
+THREE.EditorControls = function ( object, domElement , orthographicMode, orthoDebugMode) {
 
 	domElement = ( domElement !== undefined ) ? domElement : document;
 
@@ -58,8 +58,10 @@ THREE.EditorControls = function ( object, domElement , orthographicMode) {
 
 		}
 
-
-		if(object instanceof OrthographicCamera){
+		if(orthoDebugMode){
+			object.setTarget(center);
+		}
+		else if(orthographicMode){
 			object.position.x = center.x;
 			object.position.y = center.y;
 
@@ -76,9 +78,18 @@ THREE.EditorControls = function ( object, domElement , orthographicMode) {
 	};
 
 	this.pan = function ( delta ) {
+		if(orthoDebugMode){
+			// let worldRotation = object.getWorldQuaternion(new THREE.Quaternion());
+			// let rotationMatrix = new THREE.Matrix4().makeRotationFromQuaternion(worldRotation);
+			delta.multiplyScalar( scope.panSpeed * 1000 );
+			delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) ); //converts x y movement to actual axis
+			object.position.add( delta );
+			center.add( delta );
+			scope.dispatchEvent( changeEvent );
 
 
-		if(orthographicMode){
+		}
+		else if(orthographicMode){
 			// var distance = object.position.distanceTo( center );
 			delta.multiplyScalar( scope.panSpeed * 1000 );
 			// delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
@@ -98,18 +109,11 @@ THREE.EditorControls = function ( object, domElement , orthographicMode) {
 			scope.dispatchEvent( changeEvent );
 
 		}
-
-
-
-
-
-
-
 	};
 
 	this.zoom = function ( delta ) {
 
-		if(orthographicMode){
+		if(orthographicMode || orthographicMode){
 			const f = Math.pow(1.05, -delta.z);
 
 			object.zoom = object.zoom * f;
