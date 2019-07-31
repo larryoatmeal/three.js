@@ -14,7 +14,7 @@ export class Mesh extends Object3D {
 	);
 
 	geometry: Geometry | BufferGeometry;
-	material: Material | Material[];
+	material: Material;
 	drawMode: TrianglesDrawModes;
 	morphTargetInfluences?: number[];
 	morphTargetDictionary?: { [key: string]: number };

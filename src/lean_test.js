@@ -1,5 +1,5 @@
 import {Object3D} from "./core/Object3D";
-import {WebGLRenderer} from "./renderers/WebGLRenderer";
+import {WebGLRenderer} from "./renderers/WebGLRenderer_slim";
 import {MeshBasicMaterial} from "./materials/MeshBasicMaterial";
 import {RawShaderMaterial} from "./materials/RawShaderMaterial";
 import {MeshStandardMaterial} from "./materials/MeshStandardMaterial";

@@ -1,1 +1,3 @@
-export { BoxGeometry, BoxBufferGeometry } from './BoxGeometry.js';
+export { BoxBufferGeometry,  } from './BoxGeometry.js';
+export { CircleBufferGeometry } from './CircleGeometry.js';
+export { RingBufferGeometry } from './RingGeometry.js';
