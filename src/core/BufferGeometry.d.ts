@@ -44,6 +44,8 @@ export class BufferGeometry extends EventDispatcher {
 	drawRange: { start: number; count: number };
 	userData: {[key: string]: any};
 
+	needsUpdate: boolean;
+
 	getIndex(): BufferAttribute;
 	setIndex( index: BufferAttribute | number[] ): void;
 

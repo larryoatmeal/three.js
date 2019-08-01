@@ -7,7 +7,7 @@ export { WebGLRenderer } from './renderers/WebGLRenderer_slim.js';
 // export { ShaderLib } from './renderers/shaders/ShaderLib.js';
 export { UniformsLib } from './renderers/shaders/UniformsLib.js';
 export { UniformsUtils } from './renderers/shaders/UniformsUtils.js';
-// export { ShaderChunk } from './renderers/shaders/ShaderChunk.js';
+export { ShaderChunk } from './renderers/shaders/ShaderChunk_slim.js';
 // export { FogExp2 } from './scenes/FogExp2.js';
 // export { Fog } from './scenes/Fog.js';
 export { Scene } from './scenes/Scene.js';
@@ -20,7 +20,7 @@ export { Mesh } from './objects/Mesh.js';
 // export { LineSegments } from './objects/LineSegments.js';
 // export { LineLoop } from './objects/LineLoop.js';
 // export { Line } from './objects/Line.js';
-// export { Points } from './objects/Points.js';
+export { Points } from './objects/Points.js';
 export { Group } from './objects/Group.js';
 // export { VideoTexture } from './textures/VideoTexture.js';
 // export { DataTexture } from './textures/DataTexture.js';
@@ -149,6 +149,7 @@ export { Color } from './math/Color.js';
 // export * from './extras/curves/Curves.js';
 
 export * from './extras/curves/QuadraticBezierCurve3.js';
+export * from './extras/curves/QuadraticBezierCurve.js';
 
 // export { Shape } from './extras/core/Shape.js';
 // export { Path } from './extras/core/Path.js';
