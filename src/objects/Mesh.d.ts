@@ -13,7 +13,7 @@ export class Mesh extends Object3D {
 		material?: Material | Material[]
 	);
 
-	geometry: Geometry | BufferGeometry;
+	geometry: BufferGeometry;
 	material: Material;
 	drawMode: TrianglesDrawModes;
 	morphTargetInfluences?: number[];
