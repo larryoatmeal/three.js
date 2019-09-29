@@ -622,13 +622,13 @@ AnimationMixer.prototype = Object.assign( Object.create( EventDispatcher.prototy
 
 		deltaTime *= this.timeScale;
 
-		var actions = this._actions,
+		var actions = this._actions, //animation clips themselves add themselves to this
 			nActions = this._nActiveActions,
 
 			time = this.time += deltaTime,
 			timeDirection = Math.sign( deltaTime ),
 
-			accuIndex = this._accuIndex ^= 1;
+			accuIndex = this._accuIndex ^= 1; //just alternates between 0 and 1
 
 		// run active actions
 
