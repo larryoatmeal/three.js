@@ -284,7 +284,7 @@ function WebGLRenderer( parameters ) {
 		info = new WebGLInfo( _gl );
 		properties = new WebGLProperties();
 		textures = new WebGLTextures( _gl, extensions, state, properties, capabilities, utils, info );
-		attributes = new WebGLAttributes( _gl );
+		attributes = new WebGLAttributes( _gl , capabilities.isWebGL2);
 		geometries = new WebGLGeometries( _gl, attributes, info );
 		objects = new WebGLObjects( geometries, info );
 		morphtargets = new WebGLMorphtargets( _gl );

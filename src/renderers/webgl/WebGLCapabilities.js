@@ -82,7 +82,10 @@ function WebGLCapabilities( gl, extensions, parameters ) {
 
 	var vertexTextures = maxVertexTextures > 0;
 	var floatFragmentTextures = isWebGL2 || !! extensions.get( 'OES_texture_float' );
-	var floatVertexTextures = vertexTextures && floatFragmentTextures;
+	// var floatVertexTextures = vertexTextures && floatFragmentTextures;
+
+	var floatVertexTextures = false; //PREVENT SKINNING FROM USING VERTEX TEXTURES
+	//TODO: switch to vertex when necessary
 
 	var maxSamples = isWebGL2 ? gl.getParameter( gl.MAX_SAMPLES ) : 0;
 

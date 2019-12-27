@@ -41,8 +41,8 @@ import { WebGLState } from './webgl/WebGLState.js';
 import { WebGLTextures } from './webgl/WebGLTextures.js';
 import { WebGLUniforms } from './webgl/WebGLUniforms.js';
 import { WebGLUtils } from './webgl/WebGLUtils.js';
-import { WebVRManager } from './webvr/WebVRManager.js';
-import { WebXRManager } from './webvr/WebXRManager.js';
+// import { WebVRManager } from './webvr/WebVRManager.js';
+// import { WebXRManager } from './webvr/WebXRManager.js';
 
 /**
  * @author supereggbert / http://www.paulbrunt.co.uk/
@@ -284,7 +284,8 @@ function WebGLRenderer( parameters ) {
 		info = new WebGLInfo( _gl );
 		properties = new WebGLProperties();
 		textures = new WebGLTextures( _gl, extensions, state, properties, capabilities, utils, info );
-		attributes = new WebGLAttributes( _gl );
+
+		attributes = new WebGLAttributes( _gl , capabilities.isWebGL2);
 		geometries = new WebGLGeometries( _gl, attributes, info );
 		objects = new WebGLObjects( geometries, info );
 		morphtargets = new WebGLMorphtargets( _gl );
@@ -313,9 +314,9 @@ function WebGLRenderer( parameters ) {
 
 	// vr
 
-	var vr = ( typeof navigator !== 'undefined' && 'xr' in navigator && 'supportsSession' in navigator.xr ) ? new WebXRManager( _this ) : new WebVRManager( _this );
-
-	this.vr = vr;
+	// var vr = ( typeof navigator !== 'undefined' && 'xr' in navigator && 'supportsSession' in navigator.xr ) ? new WebXRManager( _this ) : new WebVRManager( _this );
+	//
+	// this.vr = vr;
 
 	// shadow map
 
@@ -383,12 +384,12 @@ function WebGLRenderer( parameters ) {
 
 	this.setSize = function ( width, height, updateStyle ) {
 
-		if ( vr.isPresenting() ) {
-
-			console.warn( 'THREE.WebGLRenderer: Can\'t change size while VR device is presenting.' );
-			return;
-
-		}
+		// if ( vr.isPresenting() ) {
+		//
+		// 	console.warn( 'THREE.WebGLRenderer: Can\'t change size while VR device is presenting.' );
+		// 	return;
+		//
+		// }
 
 		_width = width;
 		_height = height;
@@ -573,7 +574,7 @@ function WebGLRenderer( parameters ) {
 		properties.dispose();
 		objects.dispose();
 
-		vr.dispose();
+		// vr.dispose();
 
 		animation.stop();
 
@@ -1064,7 +1065,7 @@ function WebGLRenderer( parameters ) {
 
 	function onAnimationFrame( time ) {
 
-		if ( vr.isPresenting() ) return;
+		// if ( vr.isPresenting() ) return;
 		if ( onAnimationFrameCallback ) onAnimationFrameCallback( time );
 
 	}
@@ -1077,7 +1078,7 @@ function WebGLRenderer( parameters ) {
 	this.setAnimationLoop = function ( callback ) {
 
 		onAnimationFrameCallback = callback;
-		vr.setAnimationLoop( callback );
+		// vr.setAnimationLoop( callback );
 
 		animation.start();
 
@@ -1128,11 +1129,11 @@ function WebGLRenderer( parameters ) {
 
 		if ( camera.parent === null ) camera.updateMatrixWorld();
 
-		if ( vr.enabled ) {
-
-			camera = vr.getCamera( camera );
-
-		}
+		// if ( vr.enabled ) {
+		//
+		// 	camera = vr.getCamera( camera );
+		//
+		// }
 
 		//
 
@@ -1234,11 +1235,11 @@ function WebGLRenderer( parameters ) {
 
 		state.setPolygonOffset( false );
 
-		if ( vr.enabled ) {
-
-			vr.submitFrame();
-
-		}
+		// if ( vr.enabled ) {
+		//
+		// 	vr.submitFrame();
+		//
+		// }
 
 		// _gl.finish();
 
