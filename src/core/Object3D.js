@@ -15,7 +15,7 @@ import { TrianglesDrawMode } from '../constants.js';
  * @author WestLangley / http://github.com/WestLangley
  * @author elephantatwork / www.elephantatwork.ch
  */
-
+var helperStack = [];
 var object3DId = 0;
 
 function Object3D() {
@@ -36,7 +36,8 @@ function Object3D() {
 	var rotation = new Euler();
 	var quaternion = new Quaternion();
 	var scale = new Vector3( 1, 1, 1 );
-
+	
+	
 	function onRotationChange() {
 
 		quaternion.setFromEuler( rotation, false );
@@ -683,6 +684,59 @@ Object3D.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		this.matrixWorldNeedsUpdate = true;
 
 	},
+
+	updateMatrixWorldNonRecursive: function(){
+		helperStack.push(this);
+
+		let path = [];
+
+
+		while(helperStack.length > 0){
+			let node = helperStack.pop();
+
+			path.push(node);
+
+
+
+
+			// console.log("yo", force)
+			if( !node.visible){
+				 continue;
+			} //https://discourse.threejs.org/t/updatematrixworld-performance/3217
+
+			if ( node.matrixAutoUpdate ) node.updateMatrix();
+
+			if ( node.parent === null ) {
+				node.matrixWorld.copy( node.matrix );
+			} else {
+				node.matrixWorld.multiplyMatrices( node.parent.matrixWorld, node.matrix );
+			}
+
+			node.matrixWorldNeedsUpdate = false;
+
+			if(node.isCamera){
+				node.matrixWorldInverse.getInverse( node.matrixWorld );
+			}
+			if(node.isSkinnedMesh){
+				if ( node.bindMode === 'attached' ) {
+					node.bindMatrixInverse.getInverse( node.matrixWorld );
+				} else if ( this.bindMode === 'detached' ) {
+					node.bindMatrixInverse.getInverse( node.bindMatrix );
+				}
+			}
+
+			// update children
+			var children = node.children;
+
+			for ( var i = 0, l = children.length; i < l; i ++ ) {
+
+				helperStack.push(children[i]);
+			}
+
+		}
+
+	},
+	
 
 	updateMatrixWorld: function ( force , doubleForce) {
 

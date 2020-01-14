@@ -1123,7 +1123,7 @@ function WebGLRenderer( parameters ) {
 
 		// update scene graph
 
-		if ( scene.autoUpdate === true ) scene.updateMatrixWorld();
+		if ( scene.autoUpdate === true ) scene.updateMatrixWorldNonRecursive();
 
 		// update camera matrices and frustum
 
@@ -1151,7 +1151,7 @@ function WebGLRenderer( parameters ) {
 		currentRenderList = renderLists.get( scene, camera );
 		currentRenderList.init();
 
-		projectObject( scene, camera, 0, _this.sortObjects );
+		projectObjectNonRecursive( scene, camera, 0, _this.sortObjects );
 
 		if ( _this.sortObjects === true ) {
 
@@ -1247,6 +1247,138 @@ function WebGLRenderer( parameters ) {
 		currentRenderState = null;
 
 	};
+	
+	
+	
+
+	let stack = [];
+
+	//doesn't respect group order
+	function projectObjectNonRecursive(object, camera, groupOrder, sortObjects){
+
+		groupOrder = 0;
+
+		stack.push(object);
+
+		while(stack.length > 0){
+			let node = stack.pop();
+
+			if ( node.visible === false ) continue;
+
+			var visible = node.layers.test( camera.layers );
+
+			if ( visible ) {
+
+				if ( node.isGroup ) {
+
+					groupOrder = node.renderOrder;
+
+				} else if ( node.isLight ) {
+
+					currentRenderState.pushLight( node );
+
+					if ( node.castShadow ) {
+
+						currentRenderState.pushShadow( node );
+
+					}
+
+				} else if ( node.isSprite ) {
+
+					if ( ! node.frustumCulled || _frustum.intersectsSprite( node ) ) {
+
+						if ( sortObjects ) {
+
+							_vector3.setFromMatrixPosition( node.matrixWorld )
+								.applyMatrix4( _projScreenMatrix );
+
+						}
+
+						var geometry = objects.update( node );
+						var material = node.material;
+
+						if ( material.visible ) {
+
+							currentRenderList.push( node, geometry, material, groupOrder, _vector3.z, null );
+
+						}
+
+					}
+
+				} else if ( node.isImmediateRenderObject ) {
+
+					if ( sortObjects ) {
+
+						_vector3.setFromMatrixPosition( node.matrixWorld )
+							.applyMatrix4( _projScreenMatrix );
+
+					}
+
+					currentRenderList.push( node, null, node.material, groupOrder, _vector3.z, null );
+
+				} else if ( node.isMesh || node.isLine || node.isPoints ) {
+
+					if ( node.isSkinnedMesh ) {
+
+						node.skeleton.update();
+
+					}
+
+					if ( ! node.frustumCulled || _frustum.intersectsObject( node ) ) {
+
+						if ( sortObjects ) {
+
+							_vector3.setFromMatrixPosition( node.matrixWorld )
+								.applyMatrix4( _projScreenMatrix );
+
+						}
+
+						var geometry = objects.update( node );
+						var material = node.material;
+
+						if ( Array.isArray( material ) ) {
+
+							var groups = geometry.groups;
+
+							for ( let i = 0, l = groups.length; i < l; i ++ ) {
+
+								var group = groups[ i ];
+								var groupMaterial = material[ group.materialIndex ];
+
+								if ( groupMaterial && groupMaterial.visible ) {
+
+									currentRenderList.push( node, geometry, groupMaterial, groupOrder, _vector3.z, group );
+
+								}
+
+							}
+
+						} else if ( material.visible ) {
+
+							currentRenderList.push( node, geometry, material, groupOrder, _vector3.z, null );
+
+						}
+
+					}
+
+				}
+
+			}
+
+			var children = node.children;
+
+			for ( let i = 0, l = children.length; i < l; i ++ ) {
+				stack.push(children[i]);
+			}
+			
+			
+		}
+		
+		
+	}
+	
+	
+	
 
 	function projectObject( object, camera, groupOrder, sortObjects ) {
 
