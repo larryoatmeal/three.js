@@ -688,16 +688,9 @@ Object3D.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 	updateMatrixWorldNonRecursive: function(){
 		helperStack.push(this);
 
-		let path = [];
-
 
 		while(helperStack.length > 0){
-			let node = helperStack.pop();
-
-			path.push(node);
-
-
-
+			var node = helperStack.pop();
 
 			// console.log("yo", force)
 			if( !node.visible){
