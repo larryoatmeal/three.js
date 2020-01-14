@@ -1251,7 +1251,7 @@ function WebGLRenderer( parameters ) {
 	
 	
 
-	let stack = [];
+	var stack = [];
 
 	//doesn't respect group order
 	function projectObjectNonRecursive(object, camera, groupOrder, sortObjects){
@@ -1261,7 +1261,7 @@ function WebGLRenderer( parameters ) {
 		stack.push(object);
 
 		while(stack.length > 0){
-			let node = stack.pop();
+			var node = stack.pop();
 
 			if ( node.visible === false ) continue;
 
@@ -1340,7 +1340,7 @@ function WebGLRenderer( parameters ) {
 
 							var groups = geometry.groups;
 
-							for ( let i = 0, l = groups.length; i < l; i ++ ) {
+							for ( var i = 0, l = groups.length; i < l; i ++ ) {
 
 								var group = groups[ i ];
 								var groupMaterial = material[ group.materialIndex ];
@@ -1367,7 +1367,7 @@ function WebGLRenderer( parameters ) {
 
 			var children = node.children;
 
-			for ( let i = 0, l = children.length; i < l; i ++ ) {
+			for ( var i = 0, l = children.length; i < l; i ++ ) {
 				stack.push(children[i]);
 			}
 			
