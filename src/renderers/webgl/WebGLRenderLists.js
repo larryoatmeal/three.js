@@ -137,6 +137,22 @@ function WebGLRenderList() {
 
 	}
 
+	function cleanup() {
+		// clear references from renderItems not to keep the references to already disposed objects
+		for ( var i = renderItemsIndex, il = renderItems.length; i < il; i ++ ) {
+			var renderItem = renderItems[ i ];
+
+			if ( renderItem.id === null ) break;
+			renderItem.id = null;
+			renderItem.object = null;
+			renderItem.geometry = null;
+			renderItem.material = null;
+			renderItem.program = null;
+			renderItem.group = null;
+		}
+	}
+
+
 	return {
 		opaque: opaque,
 		transparent: transparent,
@@ -145,7 +161,8 @@ function WebGLRenderList() {
 		push: push,
 		unshift: unshift,
 
-		sort: sort
+		sort: sort,
+		cleanup: cleanup
 	};
 
 }

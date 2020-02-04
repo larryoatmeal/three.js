@@ -1093,6 +1093,8 @@ function WebGLRenderer( parameters ) {
 
 		projectObjectNonRecursive( scene, camera, 0, _this.sortObjects );
 
+		currentRenderList.cleanup();
+
 		if ( _this.sortObjects === true ) {
 
 			currentRenderList.sort();
