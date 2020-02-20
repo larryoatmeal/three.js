@@ -1,8 +1,8 @@
 import './polyfills.js';
 
-// export { WebGLMultisampleRenderTarget } from './renderers/WebGLMultisampleRenderTarget.js';
+export { WebGLMultisampleRenderTarget } from './renderers/WebGLMultisampleRenderTarget.js';
 // export { WebGLRenderTargetCube } from './renderers/WebGLRenderTargetCube.js';
-// export { WebGLRenderTarget } from './renderers/WebGLRenderTarget.js';
+export { WebGLRenderTarget } from './renderers/WebGLRenderTarget.js';
 export { WebGLRenderer } from './renderers/WebGLRenderer_slim.js';
 // export { ShaderLib } from './renderers/shaders/ShaderLib_slim.js';
 export { UniformsLib } from './renderers/shaders/UniformsLib.js';
@@ -23,7 +23,7 @@ export { Mesh } from './objects/Mesh.js';
 export { Points } from './objects/Points.js';
 export { Group } from './objects/Group.js';
 // export { VideoTexture } from './textures/VideoTexture.js';
-// export { DataTexture } from './textures/DataTexture.js';
+export { DataTexture } from './textures/DataTexture.js';
 // export { DataTexture2DArray } from './textures/DataTexture2DArray.js';
 // export { DataTexture3D } from './textures/DataTexture3D.js';
 // export { CompressedTexture } from './textures/CompressedTexture.js';
@@ -101,7 +101,7 @@ export { Object3D } from './core/Object3D.js';
 export { Raycaster } from './core/Raycaster.js';
 export { Layers } from './core/Layers.js';
 // export { EventDispatcher } from './core/EventDispatcher.js';
-// export { Clock } from './core/Clock.js';
+export { Clock } from './core/Clock.js';
 export { QuaternionLinearInterpolant } from './math/interpolants/QuaternionLinearInterpolant.js';
 export { LinearInterpolant } from './math/interpolants/LinearInterpolant.js';
 export { DiscreteInterpolant } from './math/interpolants/DiscreteInterpolant.js';

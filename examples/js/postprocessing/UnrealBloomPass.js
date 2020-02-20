@@ -66,7 +66,8 @@ THREE.UnrealBloomPass = function ( resolution, strength, radius, threshold ) {
 		uniforms: this.highPassUniforms,
 		vertexShader: highPassShader.vertexShader,
 		fragmentShader: highPassShader.fragmentShader,
-		defines: {}
+		defines: {},
+		transparent: true
 	} );
 
 	// Gaussian Blur Materials
@@ -97,6 +98,7 @@ THREE.UnrealBloomPass = function ( resolution, strength, radius, threshold ) {
 	this.compositeMaterial.uniforms[ "bloomStrength" ].value = strength;
 	this.compositeMaterial.uniforms[ "bloomRadius" ].value = 0.1;
 	this.compositeMaterial.needsUpdate = true;
+	this.compositeMaterial.transparent = true;
 
 	var bloomFactors = [ 1.0, 0.8, 0.6, 0.4, 0.2 ];
 	this.compositeMaterial.uniforms[ "bloomFactors" ].value = bloomFactors;
@@ -133,6 +135,7 @@ THREE.UnrealBloomPass = function ( resolution, strength, radius, threshold ) {
 	this.oldClearAlpha = 1;
 
 	this.basic = new THREE.MeshBasicMaterial();
+	this.basic.transparent = true;
 
 	this.fsQuad = new THREE.Pass.FullScreenQuad( null );
 
@@ -200,7 +203,7 @@ THREE.UnrealBloomPass.prototype = Object.assign( Object.create( THREE.Pass.proto
 			this.basic.map = readBuffer.texture;
 
 			renderer.setRenderTarget( null );
-			renderer.clear();
+			// renderer.clear();
 			this.fsQuad.render( renderer );
 
 		}
@@ -281,6 +284,7 @@ THREE.UnrealBloomPass.prototype = Object.assign( Object.create( THREE.Pass.proto
 
 		return new THREE.ShaderMaterial( {
 
+			transparent: true,
 			defines: {
 				"KERNEL_RADIUS": kernelRadius,
 				"SIGMA": kernelRadius
@@ -313,17 +317,17 @@ THREE.UnrealBloomPass.prototype = Object.assign( Object.create( THREE.Pass.proto
 					vec2 invSize = 1.0 / texSize;\
 					float fSigma = float(SIGMA);\
 					float weightSum = gaussianPdf(0.0, fSigma);\
-					vec3 diffuseSum = texture2D( colorTexture, vUv).rgb * weightSum;\
+					vec4 diffuseSum = texture2D( colorTexture, vUv).rgba * weightSum;\
 					for( int i = 1; i < KERNEL_RADIUS; i ++ ) {\
 						float x = float(i);\
 						float w = gaussianPdf(x, fSigma);\
 						vec2 uvOffset = direction * invSize * x;\
-						vec3 sample1 = texture2D( colorTexture, vUv + uvOffset).rgb;\
-						vec3 sample2 = texture2D( colorTexture, vUv - uvOffset).rgb;\
+						vec4 sample1 = texture2D( colorTexture, vUv + uvOffset).rgba;\
+						vec4 sample2 = texture2D( colorTexture, vUv - uvOffset).rgba;\
 						diffuseSum += (sample1 + sample2) * w;\
 						weightSum += 2.0 * w;\
 					}\
-					gl_FragColor = vec4(diffuseSum/weightSum, 1.0);\n\
+					gl_FragColor = diffuseSum/weightSum;\n\
 				}"
 		} );
 
