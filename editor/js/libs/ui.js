@@ -187,7 +187,7 @@ UI.Row = function () {
 	UI.Element.call( this );
 
 	var dom = document.createElement( 'div' );
-	dom.className = 'Row';
+	dom.className = 'MenuOption';
 
 	this.dom = dom;
 
