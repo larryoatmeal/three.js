@@ -18,7 +18,7 @@ var Sidebar = function ( editor ) {
 	projectTab.onClick( function () { select( 'PROJECT' ) } );
 
 	var settingsTab = new UI.Text( strings.getKey( 'sidebar/settings' ) ).setTextTransform( 'uppercase' );
-	settingsTab.onClick( function () { select( 'SETTINGS' ) } );
+	settingsTab.onClick( function () { select( 'PROFILE' ) } );
 
 	var tabs = new UI.Div();
 	tabs.setId( 'tabs' );
@@ -67,7 +67,7 @@ var Sidebar = function ( editor ) {
 				projectTab.setClass( 'selected' );
 				project.setDisplay( '' );
 				break;
-			case 'SETTINGS':
+			case 'PROFILE':
 				settingsTab.setClass( 'selected' );
 				settings.setDisplay( '' );
 				break;
