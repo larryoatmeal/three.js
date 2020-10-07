@@ -49,6 +49,8 @@
     "prebuild-closure": "rollup -c; concat -o build/three.merged.js build/three.js examples/js/loaders/GLTFLoader.js",
     "build-watch": "rollup -c --watch",
     "build-lean": "rollup -c rollup.config.lean.js",
+    "build-super-lean": "rollup -c rollup.config.super-lean.js",
+    "build-super-lean-closure": "java -jar node_modules/google-closure-compiler-java/compiler.jar --warning_level=VERBOSE --jscomp_off=globalThis --jscomp_off=checkTypes --externs utils/build/externs.js --language_in=ECMASCRIPT5_STRICT --js build/three_super_lean.js --js_output_file build/three_super_lean.min.js",
     "build-watch-lean": "rollup -c rollup.config.lean.js --watch",
     "build-watch-wasm": "rollup -c rollup.config.wasm.js --watch",
     "build-watch-lean-test": "rollup -c rollup.config.lean.test.js --watch",
